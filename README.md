@@ -36,7 +36,8 @@ After installation, add the Telraam integration via the Home Assistant UI:
 
 1. Navigate to **Configuration** > **Integrations**.
 2. Click on the "+ Add Integration" button.
-3. Search for "Telraam" and follow the on-screen instructions to configure the integration with your API key and device ID.
+3. Search for "Telraam" and follow the on-screen instructions to configure the integration with your API key and segment ID 
+    * Segment ID has 10 digits starting with 90, not: device ID (15 digits starting with 20). You can get the segemnt ID from the URL, if you select a segment on the [map](https://telraam.net/) and click on the details page via *more data*: `https://telraam.net/en/location/<segment ID like 90xxxxxxxx>`.
 
 ## Adding a widget to your dashboard
 

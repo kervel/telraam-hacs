@@ -11,6 +11,6 @@ class TelraamConfigFlow(config_entries.ConfigFlow, domain="telraam"):
             step_id="user",
             data_schema=vol.Schema({
                 vol.Required("api_key"): str,
-                vol.Required("device_id"): str,
+                vol.Required("segment_id"): str,
             }),
         )

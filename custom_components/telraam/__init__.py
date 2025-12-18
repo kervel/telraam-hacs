@@ -26,7 +26,7 @@ async def async_setup(hass: HomeAssistant, config: dict):
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry):
     """Set up Telraam from a config entry."""
     session = async_get_clientsession(hass)
-    coordinator = TelraamDataCoordinator(hass, session, entry.data["api_key"], entry.data["device_id"])
+    coordinator = TelraamDataCoordinator(hass, session, entry.data["api_key"], entry.data["segment_id"])
     await coordinator.async_config_entry_first_refresh()
 
     hass.data[DOMAIN][entry.entry_id] = coordinator
@@ -45,10 +45,10 @@ async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry):
 class TelraamDataCoordinator(DataUpdateCoordinator):
     """Class to manage fetching Telraam data API."""
 
-    def __init__(self, hass, session, api_key, device_id):
+    def __init__(self, hass, session, api_key, segment_id):
         """Initialize."""
         self.api_key = api_key
-        self.device_id = device_id
+        self.segment_id = segment_id
         self.session = session
 
         update_interval = timedelta(hours=1)
@@ -60,7 +60,7 @@ class TelraamDataCoordinator(DataUpdateCoordinator):
         url = "https://telraam-api.net/v1/reports/traffic"
         params = {
             "level": "segments",
-            "id": self.device_id,
+            "id": self.segment_id,
             "format": "per-hour",
             "time_start": (dt_util.utcnow() - timedelta(hours=2)).isoformat(),
             "time_end": dt_util.utcnow().isoformat(),

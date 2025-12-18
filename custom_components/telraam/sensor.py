@@ -24,7 +24,7 @@ class TelraamSensor(CoordinatorEntity, SensorEntity):
         self.coordinator = coordinator
         self._traffic_type = traffic_type
         self._attributes = {}
-        self._attr_unique_id = f"{coordinator.device_id}_{traffic_type}"  # Unique ID
+        self._attr_unique_id = f"{coordinator.segment_id}_{traffic_type}"  # Unique ID
         if traffic_type == 'v85':
             self._attr_name = f"85th Percentile Speed"
         elif traffic_type == 'night':
@@ -48,8 +48,8 @@ class TelraamSensor(CoordinatorEntity, SensorEntity):
     def device_info(self):
         """Return information about the device."""
         return DeviceInfo(
-            identifiers={(DOMAIN, self.coordinator.device_id)},
-            name=f"Telraam Traffic Counter ({self.coordinator.device_id})",
+            identifiers={(DOMAIN, self.coordinator.segment_id)},
+            name=f"Telraam Traffic Counter ({self.coordinator.segment_id})",
             manufacturer="Telraam",
             model="API v1",
             configuration_url="https://telraam.net"
@@ -65,7 +65,7 @@ class MotorizedTrafficSensor(CoordinatorEntity, SensorEntity):
         super().__init__(coordinator)
         self.coordinator = coordinator
         self._attributes = {}
-        self._attr_unique_id = f"{coordinator.device_id}_motorized"  # Unique ID
+        self._attr_unique_id = f"{coordinator.segment_id}_motorized"  # Unique ID
         self._attr_name = f"Total motorized"
     @property
     def state(self):
@@ -79,8 +79,8 @@ class MotorizedTrafficSensor(CoordinatorEntity, SensorEntity):
     def device_info(self):
         """Return information about the device."""
         return DeviceInfo(
-            identifiers={(DOMAIN, self.coordinator.device_id)},
-            name=f"Telraam Traffic Counter ({self.coordinator.device_id})",
+            identifiers={(DOMAIN, self.coordinator.segment_id)},
+            name=f"Telraam Traffic Counter ({self.coordinator.segment_id})",
             manufacturer="Telraam",
             model="API v1",
             configuration_url="https://telraam.net"
